@@ -2,9 +2,6 @@ import random
 
 
 def create_card():   # 创建牌堆
-    # suits = ['黑桃','红心','梅花','红方']
-    # ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-    # deck = [suit + rank for suit in suits for rank in ranks]
     deck = ['A','A','A','A',
             '2','2','2','2',
             '3','3','3','3',
@@ -29,7 +26,7 @@ def deal_cards(removed_card,num):   # 发牌
     random.shuffle(removed_card)
     for i in range(0,num):
         players[i] = removed_card[per_card*i:per_card*(i+1)]
-    players[num-1] = players[num-1] + [spare_card]
+    players[num-1] = players[num-1] + [removed_card[spare_card]]
     return players
 
 def clean(players,num):   # 消对子
@@ -58,14 +55,6 @@ def clean(players,num):   # 消对子
                     players[i].remove(aa)
                     used_card.remove(item)
                     continue
-        #         elif aa == '小王' and item == '大王':
-        #             players[i].remove('小王')
-        #             used_card.remove('大王')
-        #             continue
-        #         elif aa == '大王' and item == '小王':
-        #             players[i].remove('大王')
-        #             used_card.remove('小王')
-        #             continue
 
         players[i] = used_card
 
@@ -107,7 +96,6 @@ def main():
 
     dealed_card = deal_cards(removed_card = card,num=num)
     for i in range(0,num):
-        # player1 = dealed_card[i]
         print(f"{i+1}号位玩家，您的手牌为：{dealed_card[i]}")
 
     cleaned_card = clean(players=dealed_card,num=num)
@@ -135,30 +123,13 @@ def main():
                 if card_name:
                     print(f"乌龟牌在玩家{i + 1}手中，是{card_name}")
                     return False
-        # if len(player1) + len(player2) + len(player3) + len(player4) == 1:
-        #     if len(player1) == 1:
-        #         print(f"乌龟牌在一号位玩家手中，是{player1}")
-        #     elif len(player2) == 1:
-        #         print(f"乌龟牌在二号位玩家手中，是{player2}")
-        #     elif len(player3) == 1:
-        #         print(f"乌龟牌在三号位玩家手中，是{player3}")
-        #     else:
-        #         print(f"乌龟牌在四号位玩家手中，是{player4}")
-        #     return False
+
 
         for i in range(0,num):
             if len(new_card[i]) == 0:
                 print(f"{i+1}号位玩家赢了")
                 return False
-        # elif len(player2) == 0:
-        #     print("二号位玩家赢了")
-        #     return False
-        # elif len(player3) == 0:
-        #     print("三号位玩家赢了")
-        #     return False
-        # elif len(player4) == 0:
-        #     print("四号位玩家赢了")
-        #     return False
+
         if round > 20000:
             print(f"已经过{round}轮循环，此情形无解")
             for i in range(0,num):
